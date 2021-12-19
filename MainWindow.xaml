@@ -1,0 +1,111 @@
+﻿<Window x:Class="SideMenu.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:SideMenu" mc:Ignorable="d" Title="MainWindow"
+    Height="450" Width="800">
+  <DockPanel>
+    <Grid Background="Black" Name="menu_grid" d:Width="Auto">
+      <!-- for Drawer Animation -->
+      <Grid.Width>
+        <Binding ElementName="dummy_icon" Path="ActualWidth" Mode="OneTime" />
+      </Grid.Width>
+      <Grid.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter">
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetName="menu_grid"
+                  Storyboard.TargetProperty="Width"
+                  To="{Binding Mode=OneTime, ElementName=dummy_menu_line, Path=ActualWidth}"
+                  Duration="0:0:0.2">
+                <DoubleAnimation.EasingFunction>
+                  <CubicEase />
+                </DoubleAnimation.EasingFunction>
+              </DoubleAnimation>
+            </Storyboard>
+          </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave">
+          <BeginStoryboard>
+            <Storyboard>
+              <DoubleAnimation Storyboard.TargetName="menu_grid"
+                  Storyboard.TargetProperty="Width"
+                  To="{Binding Mode=OneTime, ElementName=dummy_icon, Path=ActualWidth}"
+                  Duration="0:0:0.15">
+                <DoubleAnimation.EasingFunction>
+                  <CubicEase />
+                </DoubleAnimation.EasingFunction>
+              </DoubleAnimation>
+            </Storyboard>
+          </BeginStoryboard>
+        </EventTrigger>
+      </Grid.Triggers>
+
+      <!-- Style Settings -->
+      <Grid.Resources>
+        <!-- unvisible but selectable RadioButton -->
+        <Style TargetType="RadioButton">
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="RadioButton">
+                <Border Cursor="Hand" Background="{TemplateBinding Background}" />
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+          <Setter Property="Background" Value="Transparent" />
+          <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="Gray" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter Property="Background" Value="#FFACACAC" />
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+        <Style TargetType="Ellipse">
+          <Setter Property="Width" Value="45" />
+          <Setter Property="Height" Value="45" />
+          <Setter Property="Margin" Value="10" />
+          <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+        <Style TargetType="TextBlock">
+          <Setter Property="FontSize" Value="20" />
+          <Setter Property="FontFamily" Value="Arial Black" />
+          <Setter Property="Foreground" Value="White" />
+          <Setter Property="VerticalAlignment" Value="Center" />
+          <Setter Property="Margin" Value="10" />
+          <Setter Property="IsHitTestVisible" Value="False" />
+        </Style>
+      </Grid.Resources>
+
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="Auto" />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+
+      <!-- Dummy element to calculate icon width -->
+      <Grid Name="dummy_icon" Grid.Column="0" Visibility="Hidden" />
+      <!-- Dummy element to calculate the width of the whole menu. -->
+      <Grid Name="dummy_menu_line" Grid.ColumnSpan="2" Visibility="Hidden" />
+
+      <RadioButton Grid.Row="0" Grid.ColumnSpan="2" IsChecked="True" />
+      <Ellipse Grid.Row="0" Grid.Column="0" Fill="#FFBEFF12" />
+      <TextBlock Grid.Row="0" Grid.Column="1">first menu</TextBlock>
+
+      <RadioButton Grid.Row="1" Grid.ColumnSpan="2" />
+      <Ellipse Grid.Row="1" Grid.Column="0" Fill="#FFFFE25D" />
+      <TextBlock Grid.Row="1" Grid.Column="1">second menu</TextBlock>
+
+      <RadioButton Grid.Row="2" Grid.ColumnSpan="2" />
+      <Ellipse Grid.Row="2" Grid.Column="0" Fill="#FFF7FF49" />
+      <TextBlock Grid.Row="2" Grid.Column="1">third menu</TextBlock>
+    </Grid>
+    <Rectangle Fill="White" />
+  </DockPanel>
+</Window>
