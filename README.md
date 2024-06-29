@@ -1,7 +1,7 @@
 # SideMenu
 
 ## Overview
-Side Menu sample on WPF (XMAL only) by .NET Core 3.1.
+Side Menu sample on WPF (XAML only) by .NET Core 3.1.
 
 Completely free.
 Please feel free to use it but no guarantee.
